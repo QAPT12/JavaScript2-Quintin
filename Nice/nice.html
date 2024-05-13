@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<head>
+    <style>
+
+        h1{
+            color: red;
+            font-size: 700%;
+            text-shadow: 20px 20px 20px rgba(0, 0, 0, 100);
+        }
+
+        img{
+            width:700px;
+            height:700px;
+        }
+
+        aside{
+            float:left;
+            position: absolute;
+        }
+
+        aside img{
+            max-width:80px;
+            max-height:80px;
+        }
+
+        body{
+            background-image: url('Shrek.jfif');
+            -webkit-animation: loader 16s steps(100) infinite;
+            -moz-animation: loader 16s steps(100) infinite;
+            -ms-animation: loader 16s steps(100) infinite;
+            -o-animation: loader 16s steps(100) infinite;
+            animation: loader 16s steps(100) infinite;
+        }
+
+        @-webkit-keyframes loader {
+          from {
+            background-position: 0;
+          }
+          to {
+            background-position: -1600px 0;
+          }
+        }
+        @-moz-keyframes loader {
+          from {
+            background-position: 0;
+          }
+          to {
+            background-position: -1600px 0;
+          }
+        }
+        @-ms-keyframes loader {
+          from {
+            background-position: 0;
+          }
+          to {
+            background-position: -1600px 0;
+          }
+        }
+        @-o-keyframes loader {
+          from {
+            background-position: 0;
+          }
+          to {
+            background-position: -1600px 0;
+          }
+        }
+        @keyframes loader {
+          from {
+            background-position: 0;
+          }
+          to {
+            background-position: -1600px 0;
+          }
+        }
+    </style>
+</head>
+
+<body>
+    <aside>
+        <img src="verify.png">
+    </aside>
+
+    <div style="margin:auto; text-align:center;">
+        <h1 id="header">HELLO THERE</h1>
+        <img src="JoshOnion.png">
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function changeHeaderColor() {
+                const header = document.getElementById('header');
+                const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff']; 
+            
+                setInterval(() => {
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    header.style.color = randomColor;
+                }, 150); 
+            }
+            changeHeaderColor();
+        });
+    </script>
+</body>
