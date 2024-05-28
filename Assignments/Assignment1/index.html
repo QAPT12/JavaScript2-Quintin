@@ -14,17 +14,17 @@
         <form id="boxCarForm">
             <div>
                 <label for="boxCarID">Box Car ID: </label>
-                <input name="boxCarID" type="text" disabled value="BX500">
+                <input name="boxCarID" type="text" readonly value="BX500">
             </div>
             
             <div>
                 <label for="boxCarEmpty">Empty Weight: </label>
-                <input name="boxCarEmpty" type="text" disabled value="15000">
+                <input name="boxCarEmpty" type="text" readonly value="15000">
             </div>
             
             <div>
                 <label for="boxCarWeight">Total Weight: </label>
-                <input name="boxCarWeight" type="text" disabled value="0">
+                <input name="boxCarWeight" type="text" readonly value="0">
             </div>  
 
             <div style="margin-left:150px;">
@@ -39,23 +39,23 @@
     <div class="cargo-div">
         <form id="cargoForm">
             <div>
-                <label for="transportID">Transport ID: </label>
-                <input name="transportID" type="text">
+                <label for="cargoID">Transport ID: </label>
+                <input id="cargoID" name="cargoID" type="text">
             </div>
             
             <div>
                 <label for="description">Description: </label>
-                <input name="description" type="text">
+                <input id="cargoDescription" name="description" type="text">
             </div>
             
             <div>
                 <label for="cargoWeight">Cargo Weight: </label>
-                <input name="cargoWeight" type="text">
+                <input id="cargoWeight" name="cargoWeight" type="text">
             </div> 
             
             <div style="margin-left:150px;">
-                <button>Process Cargo</button>
-                <button>Reset Form</button>
+                <button id="processCargoButton">Process Cargo</button>
+                <button id="cargoResetButton">Reset Form</button>
             </div>
         </form>
     </div>
