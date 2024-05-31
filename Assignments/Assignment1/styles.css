@@ -30,6 +30,10 @@ form input {
     max-width: 300px;
 }
 
+table {
+    border: 1px solid black;
+}
+
 .spacer{
     height:20px;
 }
