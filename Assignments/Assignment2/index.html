@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+    <title>JS2 - Assignment 1</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="process_cargo.js"></script>
+</head>
+
+<body>
+
+    <h1>CNA Rail System </h1>
+
+    <div class="box-car-div">
+        <form id="boxCarForm">
+            <div>
+                <label for="boxCarID">Box Car ID: </label>
+                <input name="boxCarID" id="boxCarID" type="text" readonly value="BX500">
+                <span></span>
+            </div>
+            
+            <div>
+                <label for="boxCarEmpty">Empty Weight: </label>
+                <input name="boxCarEmpty" id="boxCarEmpty" type="text" readonly value="15000">
+                <span></span>
+            </div>
+
+            <div>
+                <label for="boxCarMaxWeight">Max Weight: </label>
+                <input name="boxCarMaxWeight" id="boxCarMaxWeight" type="text" readonly value="105000">
+                <span></span>
+            </div>
+            
+            <div>
+                <label for="boxCarWeight">Total Weight: </label>
+                <input name="boxCarWeight" id="boxCarWeight" type="text" readonly value="15000">
+                <span></span>
+            </div>  
+
+            <div style="margin-left:150px;">
+                <button type="button">Process Box Car</button>
+                <button type="button">Reset Form</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="spacer"></div>
+
+    <div class="cargo-div">
+        <form id="cargoForm">
+            <div>
+                <label for="cargoID">Transport ID: </label>
+                <input id="cargoID" name="cargoID" type="text">
+                <span></span>
+            </div>
+            
+            <div>
+                <label for="description">Description: </label>
+                <input id="cargoDescription" name="description" type="text">
+                <span></span>
+            </div>
+            
+            <div>
+                <label for="cargoWeight">Cargo Weight: </label>
+                <input id="cargoWeight" name="cargoWeight" type="text">
+                <span></span>
+            </div> 
+            
+            <div style="margin-left:150px;">
+                <button type="button"id="processCargoButton">Process Cargo</button>
+                <button type="button" id="cargoResetButton">Reset Form</button>
+            </div>
+        </form>
+    </div>
+
+</body>

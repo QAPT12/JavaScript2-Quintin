@@ -1,0 +1,44 @@
+body{
+    border:2px solid blue;
+    margin:auto;
+    padding:0.5em;
+    width: 75%;
+}
+
+h1{
+    color:blue;
+}
+
+button{
+    padding:2px;
+    margin:3px;
+}
+
+form div {
+    display: flex;
+    margin-bottom: 10px; 
+}
+
+form label {
+    flex:1;
+    max-width:150px;
+    text-align: right;
+    margin-right:10px;
+}
+
+form input {
+    max-width: 300px;
+}
+
+table {
+    border: 1px solid black;
+}
+
+span {
+    color: red;
+    margin-left:5px;
+}
+
+.spacer{
+    height:20px;
+}
