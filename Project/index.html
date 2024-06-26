@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+    <title>JS2 - Project</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <!-- Div for the main page -->
+    <div id="divA" hidden>
+        <h1>CNA - Rolling Stock - Main Menu</h1>
+
+        <div class="button-row">
+            <input type="radio" name="menu" value="divB">Create Boxcar
+            <input type="radio" name="menu" value="divD">Add Freight
+            <input type="radio" name="menu" value="divC">Boxcar Data
+            <input type="radio" name="menu" value="divF">Warehouse Data
+            <input type="radio" name="menu" value="divG">All Freight Status
+        </div>
+    </div>
+
+    <!-- Div for creating a Boxcar -->
+    <div id="divB">
+        B
+        <button type="button" id="testButton" class="return-button">Return</button>
+    </div>
+
+    <!-- Div for displaying configured Boxcars -->
+    <div id="divC" hidden>
+        C
+        <button type="button" class="return-button">Return</button>
+    </div>
+
+    <!-- Div for adding freight -->
+    <div id="divD" hidden>
+        D
+        <button type="button" class="return-button">Return</button>
+    </div>
+
+    <!-- Div for displaying Boxcar manifest for selected Boxcar -->
+    <div id="divE" hidden>
+        E
+        <button type="button" class="return-button">Return</button>
+    </div>
+
+    <!-- Div for displaying warehouse manifest -->
+    <div id="divF" hidden>
+        F
+        <button type="button" class="return-button">Return</button>
+    </div>
+
+    <!-- Div for displaying all freight status -->
+    <div id="divG" hidden>
+        G
+        <button type="button" class="return-button">Return</button>
+    </div>
+
+</body>
