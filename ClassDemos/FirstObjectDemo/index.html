@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Object Demo</title>
+    <link rel="stylesheet" href="object_demo.css">
+</head>
+
+<body>
+    <main>
+        <h1>Object Demo</h1>
+        <form id="object_data_form_id" name="object_data_form_id" action="process_object.html" method="get">
+            <div>
+                <label for="name_id">Name:</label>
+                <input type="text" id="name_id" name="name_id">
+            </div>
+
+            <div>
+                <label for="phone_id">Phone:</label>
+                <input type="text" id="phone_id" name="phone_id">
+            </div>
+
+            <div>
+                <label for="status_id">Status:</label>
+                <input type="text" id="status_id" name="status_id" readonly>
+            </div>
+
+            <div>
+                <label>&nbsp;</label>
+                <input type="button" id="process_btn" value="Process">
+                <input type="button" id="display_btn" value="Display All">
+                <input type="button" id="reset_btn" value="Reset">
+            </div>
+
+        </form>
+
+    </main>
+    <script src="object_demo.js"></script>
+
+</body>
+
+</html>
