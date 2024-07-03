@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Membership Signup</title>
+    <link rel="stylesheet" href="order.css">
+</head>
+    
+<body>
+<main>
+    <h1>Order Form</h1>
+    <form action="factory_server.html" method="get"
+        name="order_form" id="order_form">
+        <fieldset>
+            <legend>Item Information</legend>
+         
+            <H4>123456789012345 678901234567890 123456789012345 678901234567890</h4>
+            <div>
+                <label for="item_code_id">Item Code:</label>
+                <input type="text" id="item_code_id" name="item_code_fld"
+                          placeholder="Exactly 4 characters">
+                <span>*</span>
+            </div>
+            <div>
+                <label for="item_desc_id">Description:</label>
+                <input type="text" id="item_desc_id" name="item_desc_fld" >
+                <span>*</span>
+            </div>
+            <div>
+                <label for="Customer Code">Customer Code:</label>
+                <input type="password" id="customer_code_id" name="customer_code_fld">
+                <span>*</span>
+            </div>
+        </fieldset>
+        <fieldset id="buttons">            
+            <legend>Submit Your Order</legend>
+            <div>
+                <label>&nbsp;</label>
+                <input type="submit" id="submit" name="submit" value="Submit">
+                <input type="reset" id="reset" name="reset" value="Reset">
+            </div>
+        </fieldset>
+    </form>
+</main>
+<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="order.js"></script>
+</body>
+</html>
