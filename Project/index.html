@@ -8,51 +8,68 @@
 
 <body>
     <!-- Div for the main page -->
-    <div id="divA" hidden>
+    <div class="menuDiv" id="divA">
         <h1>CNA - Rolling Stock - Main Menu</h1>
 
-        <div class="button-row">
+        <table>
+            <tr>
+                <td>Create Boxcar</td>
+                <td>Add Freight</td>
+                <td>Boxcar Data</td>
+                <td>Warehouse Data</td>
+                <td>All Freight Status</td>
+            </tr>
+            <tr>
+                <td><input type="radio" name="menu" value="divB"></td>
+                <td><input type="radio" name="menu" value="divD"></td>
+                <td><input type="radio" name="menu" value="divC"></td>
+                <td><input type="radio" name="menu" value="divF"></td>
+                <td><input type="radio" name="menu" value="divG"></td>
+            </tr>
+        </table>
+
+        <!-- <div class="button-row">
             <input type="radio" name="menu" value="divB">Create Boxcar
             <input type="radio" name="menu" value="divD">Add Freight
             <input type="radio" name="menu" value="divC">Boxcar Data
             <input type="radio" name="menu" value="divF">Warehouse Data
             <input type="radio" name="menu" value="divG">All Freight Status
-        </div>
+        </div> -->
     </div>
 
     <!-- Div for creating a Boxcar -->
-    <div id="divB">
-        B
+    <div class="menuDiv" id="divB" hidden>
+        <h1>B</h1>
         <button type="button" id="testButton" class="return-button">Return</button>
     </div>
 
     <!-- Div for displaying configured Boxcars -->
-    <div id="divC" hidden>
-        C
+    <div class="menuDiv" id="divC" hidden>
+        <h1>C</h1>
         <button type="button" class="return-button">Return</button>
     </div>
 
     <!-- Div for adding freight -->
-    <div id="divD" hidden>
-        D
+    <div class="menuDiv" id="divD" hidden>
+        <h1>D</h1>
         <button type="button" class="return-button">Return</button>
     </div>
 
     <!-- Div for displaying Boxcar manifest for selected Boxcar -->
-    <div id="divE" hidden>
-        E
+    <div class="menuDiv" id="divE" hidden>
+        <h1>E</h1>
         <button type="button" class="return-button">Return</button>
     </div>
 
     <!-- Div for displaying warehouse manifest -->
-    <div id="divF" hidden>
-        F
+    <div class="menuDiv" id="divF" hidden>
+        <h1>F</h1>
         <button type="button" class="return-button">Return</button>
     </div>
 
     <!-- Div for displaying all freight status -->
-    <div id="divG" hidden>
-        G
+    <div class="menuDiv" id="divG" hidden>
+        <h1>G</h1>
         <button type="button" class="return-button">Return</button>
     </div>
 
