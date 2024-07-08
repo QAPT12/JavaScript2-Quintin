@@ -10,7 +10,7 @@
 
 <body>
     <!-- Div for the main page -->
-    <div class="menuDiv" id="divA">
+    <div class="menu-div" id="divA">
         <h1>CNA - Rolling Stock - Main Menu</h1>
 
         <table>
@@ -32,37 +32,75 @@
     </div>
 
     <!-- Div for creating a Boxcar -->
-    <div class="menuDiv" id="divB" hidden>
+    <div class="menu-div" id="divB" hidden>
         <h1>CNA - Rolling Stock - Create New Box Car</h1>
-        <button type="button" id="testButton" class="return-button">Return</button>
+
+        <div class="form-div" id="createBoxCarForm">
+            <table class="form-table" >
+                <tbody>
+                    <tr>
+                        <td>BoxCar ID:</td>
+                        <td><input type="text" id="boxCarID" name="boxCarID"></td>
+                        <td><span id="boxCarErrorMsg" class="error-msg">ID Must be BX followed by 3 digits</span></td>
+                    </tr>
+                    <tr>
+                        <td>TARE Weight:</td>
+                        <td><input type="text" id="tareWeight" name="tareWeight"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Max Gross Weight:</td>
+                        <td><input type="text" id="maxGrossWeight" name="maxGrossWeight"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Cargo Weight:</td>
+                        <td><input readonly type="text" id="cargoWeight" name="cargoWeight"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Gross Weight:</td>
+                        <td><input readonly type="text" id="grossWeight" name="grossWeight"></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>   
+            <div class="spacer"></div>
+            <div class="button-row">
+                <button type="button" id="processBoxCar">Process Box Car</button>
+                <button type="button" class="reset-form-button">Reset Form</button>
+                <button type="button" class="return-button">Return</button>
+            </div>
+        </div>
+
     </div>
 
     <!-- Div for displaying configured Boxcars -->
-    <div class="menuDiv" id="divC" hidden>
+    <div class="menu-div" id="divC" hidden>
         <h1>C</h1>
         <button type="button" class="return-button">Return</button>
     </div>
 
     <!-- Div for adding freight -->
-    <div class="menuDiv" id="divD" hidden>
+    <div class="menu-div" id="divD" hidden>
         <h1>D</h1>
         <button type="button" class="return-button">Return</button>
     </div>
 
     <!-- Div for displaying Boxcar manifest for selected Boxcar -->
-    <div class="menuDiv" id="divE" hidden>
+    <div class="menu-div" id="divE" hidden>
         <h1>E</h1>
         <button type="button" class="return-button">Return</button>
     </div>
 
     <!-- Div for displaying warehouse manifest -->
-    <div class="menuDiv" id="divF" hidden>
+    <div class="menu-div" id="divF" hidden>
         <h1>F</h1>
         <button type="button" class="return-button">Return</button>
     </div>
 
     <!-- Div for displaying all freight status -->
-    <div class="menuDiv" id="divG" hidden>
+    <div class="menu-div" id="divG" hidden>
         <h1>G</h1>
         <button type="button" class="return-button">Return</button>
     </div>
