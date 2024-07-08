@@ -37,6 +37,15 @@ $(document).ready(function(){
     console.log(car.cargoList);
 
     console.log("now lets try using the box cars cargo weight function");
-    console.log(car.getTotalCargoWeight());
+    console.log(car.cargoWeight);
+
+    console.log("lets clear the cargo list from the box car and some cargo items using object literals instead of the class");
+    car.cargoList = [];
+    car.addCargo({transportID:"TECH111", description:"A usb stick", weight:150});
+    car.addCargo({transportID:"TECH1102", description:"200 feet of cat6 cable", weight:20});
+    console.log(car.cargoList);
+
+    console.log("now lets try using the box cars cargo weight function with the object literals");
+    console.log(car.cargoWeight);
 
 });

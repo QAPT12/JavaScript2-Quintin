@@ -5,18 +5,19 @@ class BoxCar {
         this.tareWeight = tareWeight;
         this.maxWeight = maxWeight;
         this.cargoList = [];
+        this.cargoWeight = 0;
     }
 
-    getTotalCargoWeight(){
-        let totalCargoWeight = 0;
+    reCalculateTotalCargoWeight(){
+        this.cargoWeight = 0;
         this.cargoList.forEach((item) => {
-            totalCargoWeight += item.weight;
+            this.cargoWeight += item.weight;
         });
-        return totalCargoWeight;
     }
 
     addCargo(cargo){
         this.cargoList.push(cargo);
+        this.reCalculateTotalCargoWeight();
     }
 
 }
