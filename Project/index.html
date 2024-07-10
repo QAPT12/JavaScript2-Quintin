@@ -9,6 +9,7 @@
 </head>
 
 <body>
+    <button id="TESTINGBUTTON">TEST - REMOVE THIS</button>
     <!-- Div for the main page -->
     <div class="menu-div" id="divA">
         <h1>CNA - Rolling Stock - Main Menu</h1>
@@ -46,16 +47,16 @@
                     <tr>
                         <td>TARE Weight:</td>
                         <td><input type="text" id="tareWeight" name="tareWeight"></td>
-                        <td></td>
+                        <td><span id="tareWeightErrorMsg" class="error-msg">Whole number 0 - 20000</span></td>
                     </tr>
                     <tr>
                         <td>Max Gross Weight:</td>
                         <td><input type="text" id="maxGrossWeight" name="maxGrossWeight"></td>
-                        <td></td>
+                        <td><span id="maxGrossWeightErrorMsg" class="error-msg">Greater than Tare & 0 - 200000</span></td>
                     </tr>
                     <tr>
                         <td>Cargo Weight:</td>
-                        <td><input readonly type="text" id="cargoWeight" name="cargoWeight"></td>
+                        <td><input readonly class ="static-input" type="text" id="cargoWeight" name="cargoWeight" value="0"></td>
                         <td></td>
                     </tr>
                     <tr>
@@ -64,45 +65,117 @@
                         <td></td>
                     </tr>
                 </tbody>
-            </table>   
+            </table>
             <div class="spacer"></div>
             <div class="button-row">
                 <button type="button" id="processBoxCar">Process Box Car</button>
                 <button type="button" class="reset-form-button">Reset Form</button>
-                <button type="button" class="return-button">Return</button>
+                <button type="button" class="return-button">Home</button>
             </div>
         </div>
-
+        <div class="spacer"></div>
     </div>
 
     <!-- Div for displaying configured Boxcars -->
     <div class="menu-div" id="divC" hidden>
-        <h1>C</h1>
-        <button type="button" class="return-button">Return</button>
+        <h1>CNA - Rolling Stock Report</h1>
+
+        <table id="configured_box_cars_table">
+            <thead>
+                <tr>
+                    <th>Box Car ID</th>
+                    <th>TARE</th>
+                    <th>Max Gross</th>
+                    <th>Cargo Weight</th>
+                    <th>Gross Weight</th>
+                </tr>    
+            </thead>
+            <tbody>
+                <!-- Data will be put here -->
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style="padding-top:1em">
+                        Total Cargo Weight: <span id="total_cargo_weight_span"></span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="spacer"></div>
+        <div class="button-row">
+            <button type="button" id="return_to_create_box_car_button" value="divB">Return to Create Box Car</button>
+            <button type="button" class="return-button">Home</button>
+        </div>
     </div>
 
     <!-- Div for adding freight -->
     <div class="menu-div" id="divD" hidden>
-        <h1>D</h1>
-        <button type="button" class="return-button">Return</button>
+        <h1>CNA - Rolling Stock - Create Freight Entry</h1>
+
+        <div class="form-div" id="boxCarSelectForm">
+            <select id="boxCarSelect">
+                <option value="">Select Box Car..</option>
+                <!-- Options for box cars will be added here -->
+            </select>
+        </div>
+        <div class="spacer"></div>
+        <div class="form-div" id="addFreightForm">
+            <table class="form-table">
+                <tbody>
+                    <tr>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Box Car Selected: </td>
+                        <td><input readonly id="selectedBoxCar"></td>
+                    </tr>
+                    <tr>
+                        <td>Transport ID: </td>
+                        <td><input type="text" id="transportID" name="transportID"></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr>
+                        <td>Description: </td>
+                        <td><input type="text" id="cargoDescription" name="cargoDescription"></td>
+                        <td><span></span></td>
+                    </tr>
+                    <tr>
+                        <td>Cargo Weight: </td>
+                        <td><input type="text" id="CreateCargoWeight" name="cargoWeight"></td>
+                        <td><span class="error-msg" id="cargoWeightErrorMsg">Cargo weight must be numerical</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="spacer"></div>
+            <div class="button-row">
+                <button type="button" id="processCargoButton">Process Cargo</button>
+                <button type="button" class="reset-form-button">Reset Form</button>
+            </div>
+        </div>
+
+
+        <div class="button-row">
+            <button type="button" class="return-button">Home</button>
+        </div>
     </div>
 
     <!-- Div for displaying Boxcar manifest for selected Boxcar -->
     <div class="menu-div" id="divE" hidden>
         <h1>E</h1>
-        <button type="button" class="return-button">Return</button>
+        <button type="button" class="return-button">Home</button>
     </div>
 
     <!-- Div for displaying warehouse manifest -->
     <div class="menu-div" id="divF" hidden>
         <h1>F</h1>
-        <button type="button" class="return-button">Return</button>
+        <button type="button" class="return-button">Home</button>
     </div>
 
     <!-- Div for displaying all freight status -->
     <div class="menu-div" id="divG" hidden>
         <h1>G</h1>
-        <button type="button" class="return-button">Return</button>
+        <button type="button" class="return-button">Home</button>
     </div>
 
 </body>
