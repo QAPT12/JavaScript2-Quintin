@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <button id="TESTINGBUTTON">TEST - REMOVE THIS</button>
     <!-- Div for the main page -->
     <div class="menu-div" id="divA">
         <h1>CNA - Rolling Stock - Main Menu</h1>
@@ -80,7 +79,7 @@
     <div class="menu-div" id="divC" hidden>
         <h1>CNA - Rolling Stock Report</h1>
 
-        <table id="configured_box_cars_table">
+        <table class="data-table" id="configured_box_cars_table">
             <thead>
                 <tr>
                     <th>Box Car ID</th>
@@ -127,12 +126,12 @@
                     </tr>
                     <tr>
                         <td>Box Car Selected: </td>
-                        <td><input readonly id="selectedBoxCar"></td>
+                        <td><input readonly class="static-input" id="selectedBoxCar"></td>
                     </tr>
                     <tr>
                         <td>Transport ID: </td>
                         <td><input type="text" id="transportID" name="transportID"></td>
-                        <td><span></span></td>
+                        <td><span class="error-msg" id="transportIDErrorMsg"></span></td>
                     </tr>
                     <tr>
                         <td>Description: </td>
@@ -141,7 +140,7 @@
                     </tr>
                     <tr>
                         <td>Cargo Weight: </td>
-                        <td><input type="text" id="CreateCargoWeight" name="cargoWeight"></td>
+                        <td><input type="text" id="createCargoWeight" name="cargoWeight"></td>
                         <td><span class="error-msg" id="cargoWeightErrorMsg">Cargo weight must be numerical</span></td>
                     </tr>
                 </tbody>
@@ -162,20 +161,85 @@
 
     <!-- Div for displaying Boxcar manifest for selected Boxcar -->
     <div class="menu-div" id="divE" hidden>
-        <h1>E</h1>
-        <button type="button" class="return-button">Home</button>
+        <h1 id="boxCarManifestTitle">CNA Box Car Manifest - Box Car</h1>
+
+        <table class="data-table" id="box_car_manifest_table">
+            <thead>
+                <tr>
+                    <th>TransportID</th>
+                    <th>Description</th>
+                    <th>Weight</th>
+                </tr>    
+            </thead>
+            <tbody>
+                <!-- Data will be put here -->
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style="padding-top:1em">
+                        Total Cargo Weight: <span id="manifest_total_cargo_weight_span"></span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="spacer"></div>
+        <div class="button-row">
+            <button type="button" id="returnToCreateFreightButton" value="divD">Return to Create Freight</button>
+            <button type="button" class="return-button">Home</button>
+        </div>
     </div>
 
     <!-- Div for displaying warehouse manifest -->
     <div class="menu-div" id="divF" hidden>
-        <h1>F</h1>
-        <button type="button" class="return-button">Home</button>
+        <h1>CNA Warehouse Manifest</h1>
+
+        <table class="data-table" id="warehouseDataTable">
+            <thead>
+                <tr>
+                    <th>TransportID</th>
+                    <th>Description</th>
+                    <th>Weight</th>
+                </tr>    
+            </thead>
+            <tbody>
+                <!-- Data will be put here -->
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style="padding-top:1em">
+                        Total Cargo Weight: <span id="warehouseTotalCargoWeight"></span>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="spacer"></div>
+        <div class="button-row">
+            <button type="button" class="return-button">Home</button>
+        </div>
+        
     </div>
 
     <!-- Div for displaying all freight status -->
     <div class="menu-div" id="divG" hidden>
-        <h1>G</h1>
-        <button type="button" class="return-button">Home</button>
+        <h1>CNA - Complete Freight Status</h1>
+
+        <table class="data-table" id="allFreightDataTable">
+            <thead>
+                <tr>
+                    <th>TransportID</th>
+                    <th>Description</th>
+                    <th>Weight</th>
+                    <th>Status</th>
+                </tr>    
+            </thead>
+            <tbody>
+                <!-- Data will be put here -->
+            </tbody>
+        </table>
+        <div class="spacer"></div>
+        <div class="button-row">
+            <button type="button" class="return-button">Home</button>
+        </div>
     </div>
 
 </body>

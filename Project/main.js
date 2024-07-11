@@ -1,11 +1,10 @@
 $(document).ready(function(){
     $(".return-button").on("click", return_to_main);
     add_button_handlers();
-
-    //$("#TESTINGBUTTON").on("click", update_box_car_select);
 });
 
 let boxCarArray = [];
+let wareHouseArray = [];
 
 // Functions for the main menu/ whole scope
 function return_to_main(){
@@ -50,9 +49,14 @@ function add_button_handlers(){
     $("#maxGrossWeight").on("keyup", max_gross_input_handler);
     $("#processBoxCar").on("click", process_box_car);
     $("#return_to_create_box_car_button").on("click", switch_div);
-    $("#CreateCargoWeight").on("keyup", cargo_weight_input_handler);
-
+    $("#returnToCreateFreightButton").on("click", switch_div);
+    $("#createCargoWeight").on("keyup", cargo_weight_input_handler);
     $("#boxCarSelect").on("change", box_car_select_change_handler);
+    $("#boxCarSelect").on("change", function(){
+        let boxCar = $("#boxCarSelect").val();
+        populate_box_car_manifest(boxCar);
+    });
+    $("#processCargoButton").on("click", process_cargo);
 }
 
 // Functions for creating the Box Cars (Div B)
@@ -147,8 +151,8 @@ function process_box_car(){
 
     if(!error){
         let id = $("#boxCarID").val();
-        let tare = $("#tareWeight").val();
-        let max = $("#maxGrossWeight").val();
+        let tare = parseInt($("#tareWeight").val());
+        let max = parseInt($("#maxGrossWeight").val());
         let newBoxCar = new BoxCar(id, tare, max);
         boxCarArray.push(newBoxCar);
         clear_form("#createBoxCarForm");
@@ -220,7 +224,7 @@ function box_car_select_change_handler(){
 }
 
 function cargo_weight_input_check(){
-    let input = $("#CreateCargoWeight").val();
+    let input = $("#createCargoWeight").val();
     if(!isNaN(input) && input != ""){
         return true;
     } else {
@@ -242,7 +246,7 @@ function process_cargo(){
     let selectedBoxCar = $("#selectedBoxCar").val();
     let transportID = $("#transportID").val();
     let cargoDescription = $("#cargoDescription").val();
-    let cargoWeight = $("#createCargoWeight").val();
+    let cargoWeight = parseInt($("#createCargoWeight").val());
 
     if(selectedBoxCar ==""){
         error = true;
@@ -259,8 +263,146 @@ function process_cargo(){
 
     if(!error){
         let newCargo = new Cargo(transportID, cargoDescription, cargoWeight);
-        const selectedBoxCar = boxCarArray.find(boxCar => boxCar.CarID === selectedBoxCar);
+        const selectedBoxCarObject = boxCarArray.find(boxCar => boxCar.carID === selectedBoxCar);
+        
+        let selectedBoxCarMaxWeight = parseInt(selectedBoxCarObject.maxWeight);
+        let selectedBoxCarTare = parseInt(selectedBoxCarObject.tareWeight);
+        let selectedBoxCarCargo = parseInt(selectedBoxCarObject.cargoWeight); 
+
+        console.log("box max: " + selectedBoxCarMaxWeight + " box tare: " + selectedBoxCarTare + " box cargo: " + selectedBoxCarCargo + " new cargo weight: " + newCargo.weight);
+        console.log(selectedBoxCarTare + selectedBoxCarCargo + newCargo.weight);
+        if(selectedBoxCarTare + selectedBoxCarCargo + newCargo.weight > selectedBoxCarMaxWeight){
+            add_cargo_to_warehouse(newCargo);
+            update_all_freight();
+            $("#transportIDErrorMsg").text("Weight Exceed - Sent to Warehouse");
+            $("#divF").show();
+        } else {
+            console.log("adding cargo to box car");
+            $("#transportIDErrorMsg").text("")
+            selectedBoxCarObject.addCargo(newCargo);
+            populate_configured_cars_table();
+            populate_box_car_manifest(selectedBoxCar);
+            $("#divE").show();
+        }
+        clear_form("#addFreightForm");
         
     }
 
+}
+
+function add_cargo_to_warehouse(cargo){
+    wareHouseArray.push(cargo);
+    update_warehouse_data();
+    update_all_freight();
+}
+
+// Functions for Box Car manifest (Div E)
+function populate_box_car_manifest(boxCarID){
+    $("#boxCarManifestTitle").text("CNA Box Car Manifest - Box Car " + boxCarID);
+
+    let boxCarManifestTable = $("#box_car_manifest_table");
+    boxCarManifestTable.find("tbody").empty();
+    
+    let chosenBoxCar = boxCarArray.find(boxCar => boxCar.carID === boxCarID);
+    chosenBoxCar.cargoList.forEach((item) => {
+        let newRow = document.createElement("tr");
+
+        let tdTransportID = document.createElement("td");
+        tdTransportID.appendChild(document.createTextNode(item.transportID));
+
+        let tdDescription = document.createElement("td");
+        tdDescription.appendChild(document.createTextNode(item.description))
+
+        let tdWeight = document.createElement("td");
+        tdWeight.appendChild(document.createTextNode(item.weight));
+
+        newRow.appendChild(tdTransportID);
+        newRow.appendChild(tdDescription);
+        newRow.appendChild(tdWeight);
+
+        boxCarManifestTable.find("tbody").append(newRow);
+    });
+    $("#manifest_total_cargo_weight_span").text(chosenBoxCar.cargoWeight)
+}
+
+// Functions for warehouse data (Div F)
+function update_warehouse_data(){
+    let totalWarehouseWeight = 0;
+    let warehouseTable = $("#warehouseDataTable");
+    warehouseTable.find("tbody").empty();
+
+    wareHouseArray.forEach((item) => {
+        let newRow = document.createElement("tr");
+
+        let tdTransportID = document.createElement("td");
+        tdTransportID.appendChild(document.createTextNode(item.transportID));
+
+        let tdDescription = document.createElement("td");
+        tdDescription.appendChild(document.createTextNode(item.description))
+
+        let tdWeight = document.createElement("td");
+        tdWeight.appendChild(document.createTextNode(item.weight));
+
+        totalWarehouseWeight += parseInt(item.weight);
+
+        newRow.appendChild(tdTransportID);
+        newRow.appendChild(tdDescription);
+        newRow.appendChild(tdWeight);
+
+        warehouseTable.find("tbody").append(newRow);
+    });
+    $("warehouseTotalCargoWeight").text(totalWarehouseWeight);
+}
+
+// functions for all cargo status (Div G)
+function update_all_freight(){
+    let freightTable = $("#allFreightDataTable");
+    freightTable.find("tbody").empty();
+
+    boxCarArray.forEach((car) => {
+        let cargoList = car.cargoList;
+        cargoList.forEach((item) =>{
+            let newRow = document.createElement("tr");
+
+            let tdTransportID = document.createElement("td");
+            tdTransportID.appendChild(document.createTextNode(item.transportID));
+    
+            let tdDescription = document.createElement("td");
+            tdDescription.appendChild(document.createTextNode(item.description))
+    
+            let tdWeight = document.createElement("td");
+            tdWeight.appendChild(document.createTextNode(item.weight));
+    
+            let tdStatus = document.createElement("td");
+            tdStatus.appendChild(document.createTextNode(car.carID));
+    
+            newRow.appendChild(tdTransportID);
+            newRow.appendChild(tdDescription);
+            newRow.appendChild(tdWeight);
+            newRow.appendChild(tdStatus);
+            freightTable.find("tbody").append(newRow);
+        });   
+    });
+
+    wareHouseArray.forEach((item) => {
+        let newRow = document.createElement("tr");
+
+            let tdTransportID = document.createElement("td");
+            tdTransportID.appendChild(document.createTextNode(item.transportID));
+    
+            let tdDescription = document.createElement("td");
+            tdDescription.appendChild(document.createTextNode(item.description))
+    
+            let tdWeight = document.createElement("td");
+            tdWeight.appendChild(document.createTextNode(item.weight));
+    
+            let tdStatus = document.createElement("td");
+            tdStatus.appendChild(document.createTextNode("Warehouse"));
+    
+            newRow.appendChild(tdTransportID);
+            newRow.appendChild(tdDescription);
+            newRow.appendChild(tdWeight);
+            newRow.appendChild(tdStatus);
+            freightTable.find("tbody").append(newRow);
+    });
 }
