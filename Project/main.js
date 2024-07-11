@@ -276,6 +276,7 @@ function process_cargo(){
             update_all_freight();
             $("#transportIDErrorMsg").text("Weight Exceed - Sent to Warehouse");
             $("#divF").show();
+            $("#divE").hide();
         } else {
             console.log("adding cargo to box car");
             $("#transportIDErrorMsg").text("")
@@ -283,6 +284,7 @@ function process_cargo(){
             populate_configured_cars_table();
             populate_box_car_manifest(selectedBoxCar);
             $("#divE").show();
+            $("#divF").hide();
         }
         clear_form("#addFreightForm");
         
