@@ -31,6 +31,12 @@ button{
     margin:4px;
 }
 
+h1{
+    text-align: center;
+    margin:1em auto;
+
+}
+
 .spacer{
     height:20px;
 }
@@ -56,4 +62,45 @@ button{
     white-space: nowrap;
     text-overflow: ellipsis;
     color: red;
+}
+
+/* Table headers bold */
+.data-table th {
+    font-weight: bold;
+}
+
+/* Borders around each row */
+.data-table{
+    border-collapse: collapse;
+}
+
+.data-table thead th, 
+.data-table tbody th, 
+.data-table tbody td {
+    border: 1px solid black;
+    padding: 0.5em 1em;
+}
+
+/* Specific padding for td elements */
+.data-table tbody td {
+    padding: 0.25em 1em;
+}
+
+/* Alternate row colors */
+.data-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray */
+}
+
+.data-table tbody tr:nth-child(odd) {
+    background-color: white;
+}
+
+.data-table tfoot {
+    font-weight: bold;
+    font-size:110%;
+}
+
+#boxCarSelectForm{
+    margin:0 auto;
+    text-align:center;
 }
