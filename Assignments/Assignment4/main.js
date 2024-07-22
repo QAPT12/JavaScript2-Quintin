@@ -4,31 +4,19 @@ $(document).ready( () => {
 
     const scores = [];
 
-    $("#add_score").click( () => {
+    $("#addScore").click( () => {
         
         const score = parseFloat($("#score").val());
                 
         if (isNaN(score) || score < 0 || score > 100) {
-            $("#add_score").next().text("Score must be from 0 to 100."); 
+            $("#addScore").next().text("Score must be from 0 to 100."); 
         }
         else {
-            $("#add_score").next().text("");  
+            $("#addScore").next().text("");  
             // add score to scores array 
             scores.push(score);
 
-            // display all scores
-            $("#all").text(scores.join(", "));
-
-            // calculate and display average score
-            const total = scores.reduce( (tot, val) => tot + val, 0 );
-            const avg = total/scores.length;
-            $("#avg").text(avg.toFixed(2));
-
-            // display last 3 scores
-            const len = scores.length;
-            const lastScores = (len <= 3) ? scores.slice() : scores.slice(len - 3, len); // copy last three
-            lastScores.reverse();
-            $("#last").text(lastScores.join(", "));
+            updateDom(scores, calculateAverageScore(scores), getLastThreeScores(scores));
         }
         
         // get text box ready for next entry
@@ -36,6 +24,40 @@ $(document).ready( () => {
         $("#score").focus(); 
     });
 
+    $("#deleteScore").click( () => {
+        
+        const index = parseInt($("#delete").val());
+
+        if (isNaN(index) || index < 0 || index >= scores.length) {
+            $("#deleteScore").next().text("Index out of range"); 
+        }
+        else {
+            $("#deleteScore").next().text("");
+            // remove score at index
+            scores.splice(index, 1);
+
+            updateDom(scores, calculateAverageScore(scores), getLastThreeScores(scores));
+        }
+
+    });
+
     // set focus on initial load
     $("#score").focus();
 });
+
+function calculateAverageScore(scores){
+    const total = scores.reduce( (tot, val) => tot + val, 0 );
+    return total/scores.length;
+}
+
+function getLastThreeScores(scores){
+    const len = scores.length;
+    const lastScores = (len <= 3) ? scores.slice() : scores.slice(len - 3, len); // copy last three
+    return lastScores.reverse();
+}
+
+function updateDom(scores, avgScores, lastThreeScores){
+    $("#all").text(scores.join(", "));
+    $("#avg").text(avgScores.toFixed(2));
+    $("#last").text(lastThreeScores.join(", "));
+}
