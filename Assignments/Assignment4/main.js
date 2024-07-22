@@ -25,7 +25,7 @@ $(document).ready( () => {
     });
 
     $("#deleteScore").click( () => {
-        
+
         const index = parseInt($("#delete").val());
 
         if (isNaN(index) || index < 0 || index >= scores.length) {
@@ -39,6 +39,8 @@ $(document).ready( () => {
             updateDom(scores, calculateAverageScore(scores), getLastThreeScores(scores));
         }
 
+        $("#delete").val("");
+        $("#score").focus(); 
     });
 
     // set focus on initial load
