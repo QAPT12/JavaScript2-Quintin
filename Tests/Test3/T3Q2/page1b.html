@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CNA TAX Calculator</title>
+    <link rel="stylesheet" href="page1b.css">
+</head>
+
+<body>
+    <main>
+        <h1>CNA TAX CALCULATOR</h1>
+        <h4>(1) Enter Income (2) Enter Taxes Paid (3) Press Submit Taxes</h4>
+        <h4></h4>
+        <form action="page1b.html" method="get" name="tax_form" id="tax_form">
+            <fieldset>
+                <legend>Tax Information</legend>
+                <div>
+                    <label for="income_id">Income:</label>
+                    <input type="text" id="income_id" name=income_id" placeholder="0 to 900,000" default 0>
+                    <span>*</span>
+                    <br>
+                    <label for="taxes_paid_id">Taxes Paid:</label>
+                    <input type="text" id="taxes_paid_id" name="taxes_paid_id" placeholder="0 to 900,000" default 0>
+                    <span>*</span>
+                    <hr>
+                    <label for="status">Tax Status:</label>
+                    <input type="text" id="status_id" name="status_id" readonly>
+                </div>
+            </fieldset>
+            <fieldset id="buttons">
+                <legend>Submit Taxes</legend>
+                <div>
+                    <label>&nbsp;</label>
+                    <input type="button" id="submit_id" name="submit_id" value="Submit Taxes">
+                </div>
+            </fieldset>
+        </form>
+
+    </main>
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="page1b.js"></script>
+</body>
+
+</html>

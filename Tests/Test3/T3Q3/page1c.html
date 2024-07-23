@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CP1295 Test 3 Q1</title>
+    <link rel="stylesheet" href="page1c.css">
+</head>
+
+<body>
+    <main>
+        <h1>CNA Button Calculator</h1>
+        <h4>Select a ONE's Button and a 100's Button and Press Calculate</h4>
+        <h4>Solution is 1 x ONE's Button + 100 * 100's Button</h4>
+        <form action="page1c.html" method="get" name="button_calculator_frm" id="button_calculator_frm">
+            <fieldset>
+
+                <div>
+                    <label>Ones:</label>
+                    <br>
+                    <input type="radio" name="ones_code" value="1" checked>1
+                    <input type="radio" name="ones_code" value="2">2
+                    <input type="radio" name="ones_code" value="3">3
+                    <input type="radio" name="ones_code" value="4">4
+                    <input type="radio" name="ones_code" value="5">5
+                    <hr>
+                    <br>
+                    <label>Hundreds:</label>
+                    <br>
+                    <input type="radio" name="hundreds_code" value="1" checked>1
+                    <input type="radio" name="hundreds_code" value="2">2
+                    <input type="radio" name="hundreds_code" value="3">3
+                    <input type="radio" name="hundreds_code" value="4">4
+                    <input type="radio" name="hundreds_code" value="5">5
+                    <hr>
+                    <label for="answer_id">Answer:</label>
+                    <input type="text" id="answer_id" name="answer_id" readonly default "0">
+
+                </div>
+            </fieldset>
+            <fieldset id="buttons">
+                <legend>Press Calculate</legend>
+                <div>
+                    <label>&nbsp;</label>
+                    <input type="button" id="calculate_id" name="calculate_id" value="CALCULATE">
+                </div>
+            </fieldset>
+        </form>
+
+
+    </main>
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="page1c.js"></script>
+</body>
+
+</html>
