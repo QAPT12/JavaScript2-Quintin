@@ -104,3 +104,24 @@ h1{
     margin:0 auto;
     text-align:center;
 }
+
+#divA {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#dayDisplayDiv {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#dayDisplayDiv button{
+    background-color: rgba(96, 215, 96, 0.845);
+    font-weight: bold;
+    text-align: center;
+    border: solid 1px black;
+    border-radius: 5%;
+    margin-left: 25px;
+}

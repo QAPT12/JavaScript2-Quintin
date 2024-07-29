@@ -4,7 +4,14 @@ $(document).ready(function(){
 });
 
 let boxCarArray = [];
-let wareHouseArray = [];
+
+// TODO: wareHouseArray
+// This becomes an array of "boxCar" objects with a max/tare of 0 that represent the station warehouse.
+// When a car is at a station and cargo is dropped off/ cant' be added - add the cargo to the correct
+// Station warehouse.
+// Display warehouse manifest will work the same as boxCard manifest but will loop through the objects in 
+// the warehouse array
+let wareHouseArray = []; 
 
 // Functions for the main menu/ whole scope
 function return_to_main(){
@@ -65,10 +72,8 @@ function boxcar_id_check(){
     const regex = new RegExp("^BX\\d{3}$");
     if(regex.test(input)){
         return true;
-        //$("#boxCarErrorMsg").text("");
     } else {
         return false;
-        //$("#boxCarErrorMsg").text("ID Must be BX followed by 3 digits");
     }
 }
 
@@ -78,14 +83,11 @@ function tare_weight_check(){
         input = parseInt(input);
         if(input < 0 || input > 20000){
             return false;
-            //$("#tareWeightErrorMsg").text("Whole number 0 - 20000");
         } else {
             return true;
-            //$("#tareWeightErrorMsg").text("");
         }
     } else {
         return false;
-        //$("#tareWeightErrorMsg").text("Whole number 0 - 20000");
     }
 }
 
@@ -96,14 +98,11 @@ function max_gross_weight_check(){
         input = parseInt(input);
         if(input <= tare || input > 200000){
             return false;
-            //$("#maxGrossWeightErrorMsg").text("Greater than Tare & 0 - 200000");
         } else {
             return true;
-            //$("#maxGrossWeightErrorMsg").text("");
         }
     } else {
         return false;
-        //$("#maxGrossWeightErrorMsg").text("Greater than Tare & 0 - 200000");
     }
 }
 
@@ -287,7 +286,7 @@ function process_cargo(){
             $("#divF").hide();
         }
         clear_form("#addFreightForm");
-        
+        update_all_freight();
     }
 
 }
@@ -329,6 +328,7 @@ function populate_box_car_manifest(boxCarID){
 
 // Functions for warehouse data (Div F)
 function update_warehouse_data(){
+    // TODO: This will mimic the boxCar manifest operations above but using the wareHouseArray
     let totalWarehouseWeight = 0;
     let warehouseTable = $("#warehouseDataTable");
     warehouseTable.find("tbody").empty();
@@ -386,6 +386,7 @@ function update_all_freight(){
         });   
     });
 
+    // TODO: This will mimic the operations above but using the wareHouseArray of objects instead.
     wareHouseArray.forEach((item) => {
         let newRow = document.createElement("tr");
 
@@ -399,6 +400,7 @@ function update_all_freight(){
             tdWeight.appendChild(document.createTextNode(item.weight));
     
             let tdStatus = document.createElement("td");
+            // status will become the "carID" of the warehouse "boxCar" object
             tdStatus.appendChild(document.createTextNode("Warehouse"));
     
             newRow.appendChild(tdTransportID);
