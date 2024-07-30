@@ -19,6 +19,8 @@
             <button id="advanceDayButton">ADVANCE DAY<br>move train</button>
         </div>
 
+        <div class="spacer"></div>
+
         <table>
             <tr>
                 <td>Create Boxcar</td>
@@ -26,6 +28,7 @@
                 <td>Boxcar Data</td>
                 <td>Warehouse Data</td>
                 <td>All Freight Status</td>
+                <td>System Summary</td>
             </tr>
             <tr>
                 <td><input type="radio" name="menu" value="divB"></td>
@@ -33,6 +36,7 @@
                 <td><input type="radio" name="menu" value="divC"></td>
                 <td><input type="radio" name="menu" value="divF"></td>
                 <td><input type="radio" name="menu" value="divG"></td>
+                <td><input type="radio" name="menu" value="secondPage"></td>
             </tr>
         </table>
     </div>
@@ -98,13 +102,13 @@
             <tbody>
                 <!-- Data will be put here -->
             </tbody>
-            <tfoot>
+            <!-- <tfoot>
                 <tr>
                     <td style="padding-top:1em">
                         Total Cargo Weight: <span id="total_cargo_weight_span"></span>
                     </td>
                 </tr>
-            </tfoot>
+            </tfoot> -->
         </table>
         <div class="spacer"></div>
         <div class="button-row">
@@ -198,8 +202,8 @@
     <!-- Div for displaying warehouse manifest -->
     <div class="menu-div" id="divF" hidden>
         <h1>CNA Warehouse Manifest</h1>
-
-        <table class="data-table" id="warehouseDataTable">
+        <!-- TODO: Get rid of this table and generate it automatically for each warehouse station -->
+        <!-- <table class="data-table" id="warehouseDataTable">
             <thead>
                 <tr>
                     <th>TransportID</th>
@@ -208,7 +212,7 @@
                 </tr>    
             </thead>
             <tbody>
-                <!-- Data will be put here -->
+                 Data will be put here 
             </tbody>
             <tfoot>
                 <tr>
@@ -217,7 +221,7 @@
                     </td>
                 </tr>
             </tfoot>
-        </table>
+        </table> -->
         <div class="spacer"></div>
         <div class="button-row">
             <button type="button" class="return-button">Home</button>

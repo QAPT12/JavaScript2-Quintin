@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $(".return-button").on("click", return_to_main);
     add_button_handlers();
+    configure_warehouses(4); // configure 4 warehouses (s1 - s4)
 });
 
 let boxCarArray = [];
@@ -9,7 +10,7 @@ let boxCarArray = [];
 // This becomes an array of "boxCar" objects with a max/tare of 0 that represent the station warehouse.
 // When a car is at a station and cargo is dropped off/ cant' be added - add the cargo to the correct
 // Station warehouse.
-// Display warehouse manifest will work the same as boxCard manifest but will loop through the objects in 
+// Display warehouse manifest will work the same as boxCar manifest but will loop through the objects in 
 // the warehouse array
 let wareHouseArray = []; 
 
@@ -34,7 +35,7 @@ function clear_form(formID){
 
 function add_menu_button_handlers(){
     console.log("adding handlers to menu buttons");
-    let all_buttons = $("input[type=radio][name=menu]");
+    let all_buttons = $("input[type=radio][name=menu]:not([value='secondPage'])");
     all_buttons.change(switch_div);
 }
 
@@ -64,6 +65,15 @@ function add_button_handlers(){
         populate_box_car_manifest(boxCar);
     });
     $("#processCargoButton").on("click", process_cargo);
+}
+
+function configure_warehouses(num){
+    for(let i = 0; i < num; i++){
+        let ID = "S" + (i > 9 ? "" + i : "0" + (i + 1));
+        let newWarehouse = new BoxCar(ID, 0, 99999999999999);
+        wareHouseArray.push(newWarehouse);
+    }
+    generate_warehouse_manifests();
 }
 
 // Functions for creating the Box Cars (Div B)
@@ -327,8 +337,52 @@ function populate_box_car_manifest(boxCarID){
 }
 
 // Functions for warehouse data (Div F)
+function generate_warehouse_manifests(){
+    console.log("generating the manifests");
+    //create table and append it to div f
+    wareHouseArray.forEach(warehouse => {
+        console.log("generating for warehouse " + warehouse.carID);
+        const title = document.createElement('h2');
+        title.textContent = `Warehouse manifest - Warehouse ${warehouse.carID}`;
+        $("#divF").find(".spacer").before(title);
+  
+        // Create the table
+        const table = document.createElement('table');
+        table.setAttribute('id', `warehouseManifestTable-${warehouse.carID}`);
+
+        // Create the table header
+        const thead = document.createElement('thead');
+        const headerRow = document.createElement('tr');
+        const headers = ['Transport ID', 'Description', 'Weight'];
+        headers.forEach(headerText => {
+          const th = document.createElement('th');
+          th.textContent = headerText;
+          headerRow.appendChild(th);
+        });
+        thead.appendChild(headerRow);
+        table.appendChild(thead);
+
+        // Create the table footer for total weight
+        const tfoot = document.createElement('tfoot');
+        const footerRow = document.createElement('tr');
+        const totalCell = document.createElement('td');
+        totalCell.setAttribute('colspan', 2);
+        totalCell.textContent = 'Total Weight';
+        footerRow.appendChild(totalCell);
+
+        const totalWeightCell = document.createElement('td');
+        footerRow.appendChild(totalWeightCell);
+
+        tfoot.appendChild(footerRow);
+        table.appendChild(tfoot);
+
+        // Append the table to the container
+        $("#divF").find(".spacer").before(table);
+    });
+}
+
 function update_warehouse_data(){
-    // TODO: This will mimic the boxCar manifest operations above but using the wareHouseArray
+    // TODO: This will mimic the all freight operations above but using the wareHouseArray only
     let totalWarehouseWeight = 0;
     let warehouseTable = $("#warehouseDataTable");
     warehouseTable.find("tbody").empty();
