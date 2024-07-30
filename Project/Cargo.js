@@ -6,4 +6,5 @@ class Cargo {
         this.weight = weight;
     }
 
+
 }

@@ -20,4 +20,13 @@ class BoxCar {
         this.reCalculateTotalCargoWeight();
     }
 
+    removeCargo(cargo){
+        this.cargoList.forEach((item, index) => {
+            if (item.transportID == cargo.transportID){
+                this.cargoList.splice(index, 1);
+            }
+        });
+        this.reCalculateTotalCargoWeight();
+    }
+
 }

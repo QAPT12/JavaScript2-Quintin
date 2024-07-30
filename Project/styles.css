@@ -31,7 +31,7 @@ button{
     margin:4px;
 }
 
-h1, h2{
+h1, h2, h3{
     text-align: center;
     margin:1em auto;
 
@@ -67,6 +67,7 @@ h1, h2{
 /* Table headers bold */
 .data-table th {
     font-weight: bold;
+    background-color: rgb(177, 177, 253);
 }
 
 /* Borders around each row */

@@ -6,13 +6,11 @@ $(document).ready(function(){
 
 let boxCarArray = [];
 
-// TODO: wareHouseArray
-// This becomes an array of "boxCar" objects with a max/tare of 0 that represent the station warehouse.
-// When a car is at a station and cargo is dropped off/ cant' be added - add the cargo to the correct
-// Station warehouse.
-// Display warehouse manifest will work the same as boxCar manifest but will loop through the objects in 
-// the warehouse array
 let wareHouseArray = []; 
+
+let dayCounter = 1;
+
+let trainLocation = 'S01';
 
 // Functions for the main menu/ whole scope
 function return_to_main(){
@@ -37,6 +35,12 @@ function add_menu_button_handlers(){
     console.log("adding handlers to menu buttons");
     let all_buttons = $("input[type=radio][name=menu]:not([value='secondPage'])");
     all_buttons.change(switch_div);
+
+    let summary_button = $("input[type=radio][name=menu][value='secondPage'");
+    summary_button.change(function(){
+        window.open('summary.html');
+        return_to_main();
+    });
 }
 
 function add_form_reset_handlers(){
@@ -59,22 +63,55 @@ function add_button_handlers(){
     $("#return_to_create_box_car_button").on("click", switch_div);
     $("#returnToCreateFreightButton").on("click", switch_div);
     $("#createCargoWeight").on("keyup", cargo_weight_input_handler);
+    $("#transportID").on("keyup", cargo_id_input_handler);
     $("#boxCarSelect").on("change", box_car_select_change_handler);
     $("#boxCarSelect").on("change", function(){
         let boxCar = $("#boxCarSelect").val();
         populate_box_car_manifest(boxCar);
     });
     $("#processCargoButton").on("click", process_cargo);
+    $("#advanceDayButton").on("click", advance_day);
 }
 
 function configure_warehouses(num){
     for(let i = 0; i < num; i++){
         let ID = "S" + (i > 9 ? "" + i : "0" + (i + 1));
-        let newWarehouse = new BoxCar(ID, 0, 99999999999999);
+        let newWarehouse = new BoxCar(ID, 0, 999999999999999); // Kind of gross way to do warehouses but it works and lets me reuse code
         wareHouseArray.push(newWarehouse);
     }
     generate_warehouse_manifests();
 }
+
+function advance_day(){
+    // TODO: set this up
+    // move day counter up.
+    // change position of the train to next station.
+    // check cargoList for any items that have to come off at that station.
+    // if more cargo gets added have to handle that in the add cargo to add the item to the new station. 
+    // I.E if at station two an try to add an item that is too heavy for box car it is added to station two manifest.
+
+    dayCounter += 1;
+    $("#dayValueHeader").text(dayCounter);
+    trainLocation = `S0${dayCounter}`;
+    boxCarArray.forEach(boxCar => {
+        check_cargo_drop_off(boxCar, trainLocation);
+    });
+}
+
+function check_cargo_drop_off(car, location){
+    car.cargoList.forEach(item => {
+        let destination = item.transportID.slice(-3);
+        if (destination = location){
+            drop_off_cargo(item, car, location);
+        }
+    });
+}
+
+function drop_off_cargo(item, car, location){
+    let selectedBoxCar = boxCarArray.find(boxCar => boxCar.carID === car.carID);
+    selectedBoxCar.removeCargo(item);
+    add_cargo_to_warehouse(item, location);
+}   
 
 // Functions for creating the Box Cars (Div B)
 function boxcar_id_check(){
@@ -250,6 +287,25 @@ function cargo_weight_input_handler(){
     }
 }
 
+function cargo_id_input_check(){
+    let input = $("#transportID").val();
+    const regex = new RegExp("^[A-Z]{3}\\d{4}S0[1-4]$")
+    if(regex.test(input)){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function cargo_id_input_handler(){
+    console.log("checking cargo id");
+    if(cargo_id_input_check()){
+        $("#transportIDErrorMsg").text("");
+    } else {
+        $("#transportIDErrorMsg").text("Cargo ID Invalid");
+    }
+}
+
 function process_cargo(){
     let error = false;
     let selectedBoxCar = $("#selectedBoxCar").val();
@@ -269,6 +325,9 @@ function process_cargo(){
     if(!cargo_weight_input_check){
         error = true;
     }
+    if(!cargo_id_input_check){
+        error = true;
+    }
 
     if(!error){
         let newCargo = new Cargo(transportID, cargoDescription, cargoWeight);
@@ -281,7 +340,7 @@ function process_cargo(){
         console.log("box max: " + selectedBoxCarMaxWeight + " box tare: " + selectedBoxCarTare + " box cargo: " + selectedBoxCarCargo + " new cargo weight: " + newCargo.weight);
         console.log(selectedBoxCarTare + selectedBoxCarCargo + newCargo.weight);
         if(selectedBoxCarTare + selectedBoxCarCargo + newCargo.weight > selectedBoxCarMaxWeight){
-            add_cargo_to_warehouse(newCargo);
+            add_cargo_to_warehouse(newCargo, trainLocation);
             update_all_freight();
             $("#transportIDErrorMsg").text("Weight Exceed - Sent to Warehouse");
             $("#divF").show();
@@ -301,8 +360,9 @@ function process_cargo(){
 
 }
 
-function add_cargo_to_warehouse(cargo){
-    wareHouseArray.push(cargo);
+function add_cargo_to_warehouse(cargo, location){
+    let chosenWarehouse = wareHouseArray.find(warehouse => warehouse.carID === location);
+    chosenWarehouse.addCargo(cargo);
     update_warehouse_data();
     update_all_freight();
 }
@@ -338,76 +398,93 @@ function populate_box_car_manifest(boxCarID){
 
 // Functions for warehouse data (Div F)
 function generate_warehouse_manifests(){
-    console.log("generating the manifests");
-    //create table and append it to div f
+    console.log("generating warehouses");
     wareHouseArray.forEach(warehouse => {
-        console.log("generating for warehouse " + warehouse.carID);
-        const title = document.createElement('h2');
-        title.textContent = `Warehouse manifest - Warehouse ${warehouse.carID}`;
-        $("#divF").find(".spacer").before(title);
-  
-        // Create the table
-        const table = document.createElement('table');
-        table.setAttribute('id', `warehouseManifestTable-${warehouse.carID}`);
+        let newDiv = document.createElement("div");
+        newDiv.setAttribute("id", `warehouse${warehouse.carID}ManifestDiv`);
+        
+        let newTitle = document.createElement("h2");
+        newTitle.textContent = `Warehouse manifest - Warehouse ${warehouse.carID}`;
+        newDiv.appendChild(newTitle);
 
-        // Create the table header
-        const thead = document.createElement('thead');
-        const headerRow = document.createElement('tr');
-        const headers = ['Transport ID', 'Description', 'Weight'];
-        headers.forEach(headerText => {
-          const th = document.createElement('th');
-          th.textContent = headerText;
-          headerRow.appendChild(th);
+        let newTable = document.createElement("table");
+        newTable.setAttribute("id", `warehouse${warehouse.carID}ManifestTable`);
+        newTable.classList.add("data-table");
+
+        let newHeader = document.createElement("thead");
+        let newHeaderRow = document.createElement("tr");
+        const headers = ["Transport ID", "Description", "Weight"];
+        headers.forEach(header => {
+            let th = document.createElement('th');
+            th.textContent = header;
+            newHeaderRow.appendChild(th);
         });
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
+        newHeader.appendChild(newHeaderRow);
+        newTable.appendChild(newHeader);
 
-        // Create the table footer for total weight
-        const tfoot = document.createElement('tfoot');
-        const footerRow = document.createElement('tr');
-        const totalCell = document.createElement('td');
-        totalCell.setAttribute('colspan', 2);
-        totalCell.textContent = 'Total Weight';
-        footerRow.appendChild(totalCell);
+        let newBody = document.createElement("tbody");
+        newTable.appendChild(newBody);
 
-        const totalWeightCell = document.createElement('td');
-        footerRow.appendChild(totalWeightCell);
+        let newFooter = document.createElement('tfoot');
+        const newFooterRow = document.createElement('tr');
+        const newCell = document.createElement('td');
+        newCell.setAttribute('colspan', 2);
+        newCell.textContent = 'Total Weight';
+        newFooterRow.appendChild(newCell);
+        let totalWeightCell = document.createElement('td');
+        newFooterRow.appendChild(totalWeightCell);
+        newFooter.appendChild(newFooterRow);
+        newTable.appendChild(newFooter);
+        newTable.setAttribute("hidden", true);
+        newDiv.appendChild(newTable);
+        
+        let emptyText = document.createElement("h3");
+        emptyText.textContent = ("*** EMPTY ***");
+        newDiv.appendChild(emptyText);
 
-        tfoot.appendChild(footerRow);
-        table.appendChild(tfoot);
-
-        // Append the table to the container
-        $("#divF").find(".spacer").before(table);
+        $("#divF").find(".spacer").before(newDiv);
     });
 }
 
 function update_warehouse_data(){
-    // TODO: This will mimic the all freight operations above but using the wareHouseArray only
-    let totalWarehouseWeight = 0;
-    let warehouseTable = $("#warehouseDataTable");
-    warehouseTable.find("tbody").empty();
+    console.log("updating warehouse data");
+    wareHouseArray.forEach(warehouse => {
+        console.log(warehouse.cargoList);
+        if(warehouse.cargoList.size <= 0){
+            // hide table if it is shown
+            // if the div doesn't have empty text add it
+            $(`#warehouse${warehouse.carID}ManifestTable`).prop("hidden", true);
+            if($(`#warehouse${warehouse.carID}ManifestDiv`).find("h3").length < 1){
+                let emptyText = document.createElement("h3");
+                emptyText.textContent = ("*** EMPTY ***");
+                $(`#warehouse${warehouse.carID}ManifestDiv`).append(emptyText);
+            }
+        } else {
+            // unhide and fill the table
+            // hide the empty text
+            $(`#warehouse${warehouse.carID}ManifestDiv`).find("h3").remove();
+            $(`#warehouse${warehouse.carID}ManifestTable tbody`).empty();
+            $(`#warehouse${warehouse.carID}ManifestTable`).prop("hidden", "");
+            warehouse.cargoList.forEach(cargo => {
+                let newCargoRow = document.createElement("tr");
 
-    wareHouseArray.forEach((item) => {
-        let newRow = document.createElement("tr");
+                let tdTransportID = document.createElement("td");
+                tdTransportID.appendChild(document.createTextNode(cargo.transportID));
 
-        let tdTransportID = document.createElement("td");
-        tdTransportID.appendChild(document.createTextNode(item.transportID));
+                let tdDescription = document.createElement("td");
+                tdDescription.appendChild(document.createTextNode(cargo.description))
 
-        let tdDescription = document.createElement("td");
-        tdDescription.appendChild(document.createTextNode(item.description))
+                let tdWeight = document.createElement("td");
+                tdWeight.appendChild(document.createTextNode(cargo.weight));
 
-        let tdWeight = document.createElement("td");
-        tdWeight.appendChild(document.createTextNode(item.weight));
+                newCargoRow.appendChild(tdTransportID);
+                newCargoRow.appendChild(tdDescription);    
+                newCargoRow.appendChild(tdWeight);
+                $(`#warehouse${warehouse.carID}ManifestTable tbody`).append(newCargoRow);
+            });
+        }
 
-        totalWarehouseWeight += parseInt(item.weight);
-
-        newRow.appendChild(tdTransportID);
-        newRow.appendChild(tdDescription);
-        newRow.appendChild(tdWeight);
-
-        warehouseTable.find("tbody").append(newRow);
     });
-    $("warehouseTotalCargoWeight").text(totalWarehouseWeight);
 }
 
 // functions for all cargo status (Div G)
@@ -440,9 +517,10 @@ function update_all_freight(){
         });   
     });
 
-    // TODO: This will mimic the operations above but using the wareHouseArray of objects instead.
-    wareHouseArray.forEach((item) => {
-        let newRow = document.createElement("tr");
+    wareHouseArray.forEach(warehouse => {
+        let cargoList = warehouse.cargoList;
+        cargoList.forEach(item => {
+            let newRow = document.createElement("tr");
 
             let tdTransportID = document.createElement("td");
             tdTransportID.appendChild(document.createTextNode(item.transportID));
@@ -454,13 +532,13 @@ function update_all_freight(){
             tdWeight.appendChild(document.createTextNode(item.weight));
     
             let tdStatus = document.createElement("td");
-            // status will become the "carID" of the warehouse "boxCar" object
-            tdStatus.appendChild(document.createTextNode("Warehouse"));
+            tdStatus.appendChild(document.createTextNode(warehouse.carID));
     
             newRow.appendChild(tdTransportID);
             newRow.appendChild(tdDescription);
             newRow.appendChild(tdWeight);
             newRow.appendChild(tdStatus);
             freightTable.find("tbody").append(newRow);
+        });
     });
 }
