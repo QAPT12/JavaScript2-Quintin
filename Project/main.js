@@ -24,6 +24,9 @@ function switch_div(event){
     let div = "#" + currentElement.value;
     $(".menu-div").not(div).hide();
     $(div).show();
+    if (div == "#divB" && boxCarArray.length > 0){
+        $("#divC").show();
+    }
 }
 
 function clear_form(formID){
@@ -83,12 +86,6 @@ function configure_warehouses(num){
 }
 
 function advance_day(){
-    // TODO: set this up
-    // move day counter up.
-    // change position of the train to next station.
-    // check cargoList for any items that have to come off at that station.
-    // if more cargo gets added have to handle that in the add cargo to add the item to the new station. 
-    // I.E if at station two an try to add an item that is too heavy for box car it is added to station two manifest.
 
     dayCounter += 1;
     $("#dayValueHeader").text(dayCounter);
@@ -99,9 +96,10 @@ function advance_day(){
 }
 
 function check_cargo_drop_off(car, location){
+    console.log("Checking the drop off for " + car.cargoList);
     car.cargoList.forEach(item => {
         let destination = item.transportID.slice(-3);
-        if (destination = location){
+        if (destination == location){
             drop_off_cargo(item, car, location);
         }
     });
@@ -357,7 +355,6 @@ function process_cargo(){
         clear_form("#addFreightForm");
         update_all_freight();
     }
-
 }
 
 function add_cargo_to_warehouse(cargo, location){
@@ -365,6 +362,8 @@ function add_cargo_to_warehouse(cargo, location){
     chosenWarehouse.addCargo(cargo);
     update_warehouse_data();
     update_all_freight();
+    populate_configured_cars_table();
+    
 }
 
 // Functions for Box Car manifest (Div E)
