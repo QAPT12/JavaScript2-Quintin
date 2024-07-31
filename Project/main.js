@@ -1,3 +1,7 @@
+// TODO: Work on the secondary display screen using cookies to send over the totals
+
+// TODO: improve functionality for adding freight. If a boxcar if the select box is'nt empty when showing the div
+// show the information for the box car selected in the drop down.
 $(document).ready(function(){
     $(".return-button").on("click", return_to_main);
     add_button_handlers();
@@ -431,6 +435,7 @@ function generate_warehouse_manifests(){
         newCell.textContent = 'Total Weight';
         newFooterRow.appendChild(newCell);
         let totalWeightCell = document.createElement('td');
+        totalWeightCell.setAttribute('id', `warehouse${warehouse.carID}TotalWeightCell`);
         newFooterRow.appendChild(totalWeightCell);
         newFooter.appendChild(newFooterRow);
         newTable.appendChild(newFooter);
@@ -464,6 +469,7 @@ function update_warehouse_data(){
             $(`#warehouse${warehouse.carID}ManifestDiv`).find("h3").remove();
             $(`#warehouse${warehouse.carID}ManifestTable tbody`).empty();
             $(`#warehouse${warehouse.carID}ManifestTable`).prop("hidden", "");
+            let warehouseTotalWeight = 0;
             warehouse.cargoList.forEach(cargo => {
                 let newCargoRow = document.createElement("tr");
 
@@ -475,12 +481,14 @@ function update_warehouse_data(){
 
                 let tdWeight = document.createElement("td");
                 tdWeight.appendChild(document.createTextNode(cargo.weight));
+                warehouseTotalWeight += cargo.weight;
 
                 newCargoRow.appendChild(tdTransportID);
                 newCargoRow.appendChild(tdDescription);    
                 newCargoRow.appendChild(tdWeight);
                 $(`#warehouse${warehouse.carID}ManifestTable tbody`).append(newCargoRow);
             });
+            $(`#warehouse${warehouse.carID}TotalWeightCell`).text(warehouseTotalWeight);
         }
 
     });
@@ -490,10 +498,12 @@ function update_warehouse_data(){
 function update_all_freight(){
     let freightTable = $("#allFreightDataTable");
     freightTable.find("tbody").empty();
+    let allFreightTotalWeight = 0;
 
     boxCarArray.forEach((car) => {
         let cargoList = car.cargoList;
         cargoList.forEach((item) =>{
+            allFreightTotalWeight += item.weight;
             let newRow = document.createElement("tr");
 
             let tdTransportID = document.createElement("td");
@@ -519,6 +529,7 @@ function update_all_freight(){
     wareHouseArray.forEach(warehouse => {
         let cargoList = warehouse.cargoList;
         cargoList.forEach(item => {
+            allFreightTotalWeight += item.weight;
             let newRow = document.createElement("tr");
 
             let tdTransportID = document.createElement("td");
@@ -540,4 +551,6 @@ function update_all_freight(){
             freightTable.find("tbody").append(newRow);
         });
     });
+
+    $("#allFreightWeightCell").text(allFreightTotalWeight);
 }
