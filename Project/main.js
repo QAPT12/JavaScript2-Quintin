@@ -1,6 +1,6 @@
 // TODO: Work on the secondary display screen using cookies to send over the totals
 
-// TODO: improve functionality for adding freight. If a boxcar if the select box is'nt empty when showing the div
+// TODO: improve functionality for adding freight. If a boxcar if the select box isn't empty when showing the div
 // show the information for the box car selected in the drop down.
 $(document).ready(function(){
     $(".return-button").on("click", return_to_main);
@@ -26,10 +26,10 @@ function return_to_main(){
 function system_summary(){
     let totalBoxCarWeight = boxCarArray.reduce(function(total, car){return total + car.cargoWeight}, 0);
     let totalWarehouseWeight = wareHouseArray.reduce(function(total, warehouse){return total + warehouse.cargoWeight}, 0)
-    
-    document.cookie = `totalBoxCarWeight=${totalBoxCarWeight}; path=/summary`;
-    document.cookie = `totalWareHouseWeight=${totalWarehouseWeight}; path=/summary`;
-    document.cookie = `totalSystemWeight=${totalBoxCarWeight + totalWarehouseWeight}; path=/summary`;
+
+    document.cookie = `totalBoxCarWeight=${totalBoxCarWeight}; path=/`;
+    document.cookie = `totalWareHouseWeight=${totalWarehouseWeight}; path=/`;
+    document.cookie = `totalSystemWeight=${parseInt(totalBoxCarWeight) + parseInt(totalWarehouseWeight)}; path=/`;
     
     window.open('summary.html');
 }

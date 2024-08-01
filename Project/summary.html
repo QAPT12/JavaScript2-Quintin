@@ -15,27 +15,44 @@
             <tbody>
                 <tr>
                     <td>Total Weight in BoxCars</td>
-                    <td><input type="text" readonly></td>
+                    <td><input type="text" id="boxCarWeight" readonly></td>
                 </tr>
                 <tr>
                     <td>Total Weight in Warehouses</td>
-                    <td><input type="text" readonly></td>
+                    <td><input type="text" id="warehouseWeight" readonly></td>
                 </tr>
                 <tr>
                     <td>CNA Rail System Total Weight</td>
-                    <td><input type="text" readonly></td>
+                    <td><input type="text" id="systemWeight" readonly></td>
                 </tr>
             </tbody>
         </table>
     </div>
 
     <script>
-        
+        $(document).ready(() => {
+            const cookies = document.cookie;
+            console.log("Cookies received :\n" + cookies);
+            $("#boxCarWeight").val(getCookie("totalBoxCarWeight"));
+            $("#warehouseWeight").val(getCookie("totalWareHouseWeight"));
+            $("#systemWeight").val(getCookie("totalSystemWeight"));
+            console.log(boxCarWeight + "    " + warehouseWeight + "     " + systemWeight);
+        });
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
     </script>
 
     <div class="spacer"></div>
     <div class="button-row">
-        <button type="button">Return to Main Page</button>
-      
+        <button type="button" id="returnBtn">Return to Main Page</button>
     </div>
+    <script>
+        $("#returnBtn").on("click", function(){
+            window.close();
+        })
+    </script>
 </body>
