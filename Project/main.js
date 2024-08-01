@@ -23,6 +23,17 @@ function return_to_main(){
     $("input[type=radio][name=menu]").prop("checked", false);
 }
 
+function system_summary(){
+    let totalBoxCarWeight = boxCarArray.reduce(function(total, car){return total + car.cargoWeight}, 0);
+    let totalWarehouseWeight = wareHouseArray.reduce(function(total, warehouse){return total + warehouse.cargoWeight}, 0)
+    
+    document.cookie = `totalBoxCarWeight=${totalBoxCarWeight}; path=/summary`;
+    document.cookie = `totalWareHouseWeight=${totalWarehouseWeight}; path=/summary`;
+    document.cookie = `totalSystemWeight=${totalBoxCarWeight + totalWarehouseWeight}; path=/summary`;
+    
+    window.open('summary.html');
+}
+
 function switch_div(event){
     let currentElement = event.currentTarget;
     let div = "#" + currentElement.value;
@@ -45,7 +56,7 @@ function add_menu_button_handlers(){
 
     let summary_button = $("input[type=radio][name=menu][value='secondPage'");
     summary_button.change(function(){
-        window.open('summary.html');
+        system_summary();
         return_to_main();
     });
 }
@@ -90,7 +101,6 @@ function configure_warehouses(num){
 }
 
 function advance_day(){
-
     dayCounter += 1;
     $("#dayValueHeader").text(dayCounter);
     trainLocation = `S0${dayCounter}`;

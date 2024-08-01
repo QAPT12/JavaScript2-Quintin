@@ -9,10 +9,11 @@ class BoxCar {
     }
 
     reCalculateTotalCargoWeight(){
-        this.cargoWeight = 0;
+        let weightTotal = 0;
         this.cargoList.forEach((item) => {
-            this.cargoWeight += item.weight;
+            weightTotal += item.weight;
         });
+        this.cargoWeight = weightTotal;
     }
 
     addCargo(cargo){
