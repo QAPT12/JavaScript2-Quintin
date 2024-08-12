@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: white;
+    margin: 0 auto;
+    width: 600px;
+    padding: 10px 20px;
+    border: 3px solid blue;
+
+}
+label {
+	float: left;
+    width: 10em;
+    text-align: right;
+}
+input {
+    width: 14em;
+    margin-left: 1em;
+    margin-bottom: .5em;
+}
+#buttons input {
+	width: 7em;
+	margin-right: 0;   
+}
+fieldset {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding-top: .5em;
+}
+legend {
+    color: blue;
+    font-weight: bold;
+    font-size: 85%;
+    margin-bottom: .5em;
+}
+span {
+	color: red;
+	font-size: 87.5%;
+	margin-left: .5em;
+}
+#individual, #corporate {
+	width: 1em;
+	margin-bottom: .9em;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+.invalid_access_code {
+    background-color: red;
+}
+.invalid_keys {
+    background-color: yellow;
+}
+.valid_keys {
+    background-color: green;
+}
+.lock_keys {
+    background-color: lightgray;
+}
+.diagnostics_on {
+    background-color: green;
+}
+.diagnostics_off {
+    background-color: yellow;
+}
+.hide_diagnostics {
+    visibility: hidden;
+}
+#diagnostic_btn {
+    width: 2em;
+}
+

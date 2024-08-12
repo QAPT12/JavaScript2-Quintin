@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Problem P1</title>
+    <link rel="stylesheet" href="pageP1.css">
+</head>
+
+<body>
+    <main>
+        <h1>Problem P1</h1>
+        <fieldset>
+            <legend>Access Code</legend>
+            <label for="access_code_id">Access Code:</label>
+            <input type="text" id="access_code_id" placeholder="3 character code">
+            <span>*</span>
+        </fieldset>
+        <fieldset>
+            <legend>Key Codes are required- 00 to 99 If they add to 100 Keys will be valid</legend>
+            <div id="key_code_div">
+                <label for="key_1_id">Key 1:</label>
+                <input type="text" id="key_1_id" placeholder="Enter code 00 to 99">
+                <span>*</span>
+                <br>
+                <label for="key_2_id">Key 2:</label>
+                <input type="text" id="key_2_id" placeholder="Enter code 00 to 99">
+
+                <br>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>&nbsp &nbsp &nbsp
+                &nbsp &nbsp Validate your Codes
+                &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                &nbsp &nbsp RED YELLOW GREEN &nbsp &nbsp
+            </legend>
+
+            <div>
+                <input type="button" id="validate_id" value="Validate Keys">
+                <input type="button" id="display_id" value="">
+            </div>
+        </fieldset>
+
+    </main>
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="pageP1.js"></script>
+</body>
+
+</html>

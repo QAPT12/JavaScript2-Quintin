@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CNA Train Station</title>
+    <link rel="stylesheet" href="station.css">
+</head>
+
+<body>
+    <main>
+        <h1>CNA Train Station V1</h1>
+        <h4>Press CTRL + SHIFT + DEL to Clear History between code changes</h4>
+        <h4>CLICK on one of the links below to use port 8080 as required</h4>
+
+        <fieldset>
+            <legend>Train Information</legend>
+            <div>
+                <label for="train_location_id">Location:</label>
+                <input type="text" id="train_location_id" name="train_location_id" readonly>
+                <br>
+                <label for="train_speed_id">Speed:</label>
+                <input type="text" id="train_speed_id" name="train_speed_id" readonly>
+                <br>
+            </div>
+        </fieldset>
+        <fieldset id="buttons">
+            <legend>Train Data Update</legend>
+            <div>
+                <label>&nbsp;</label>
+                <input type="button" id="check_train_btn" name="check_train_btn" value="Check Train Status">
+            </div>
+        </fieldset>
+        <a href="http:\\127.0.0.1:8080\train.html">Train</a>
+        <br>
+        <a href="http:\\127.0.0.1:8080\station.html">STATION</a>
+    </main>
+    <script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="station.js"></script>
+</body>
+
+</html>
